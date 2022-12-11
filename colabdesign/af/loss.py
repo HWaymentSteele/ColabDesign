@@ -165,7 +165,8 @@ class _af_loss:
       "plddt":   get_plddt_loss(outputs, mask_1d=mask_1d),
       "pae":     get_pae_loss(outputs, **masks),
       "con":     get_con_loss(inputs, outputs, opt["con"], **masks),
-      "helix":   get_helix_loss(inputs, outputs)
+      "helix":   get_helix_loss(inputs, outputs),
+      "seqid":   get_seqid_loss(outputs)
     }
 
     # define losses at interface
@@ -181,6 +182,9 @@ class _af_loss:
 
 #####################################################################################
 
+def get_seqid_loss(aux):
+  return aux['log']['seqid']
+  
 def get_plddt(outputs):
   logits = outputs["predicted_lddt"]["logits"]
   num_bins = logits.shape[-1]
